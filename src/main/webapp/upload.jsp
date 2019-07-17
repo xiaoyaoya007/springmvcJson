@@ -11,8 +11,17 @@
     <title>Title</title>
 </head>
 <body>
+<h1>--------------------单个上传---------------</h1>
 <form method="post" enctype="multipart/form-data" action="upload.do">
-    <input type="file" name="file"><input type="submit">
+    <input type="file" name="file"><br>
+    <input type="submit">
+</form>
+<h1>--------------------批量上传---------------</h1>
+<form method="post" enctype="multipart/form-data" action="uploads.do">
+    <input type="file" name="file"><br>
+    <input type="file" name="file"><br>
+    <input type="file" name="file"><br>
+    <input type="submit">
 </form>
 </body>
 </html>
