@@ -12,7 +12,9 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>springmvc</servlet-name>
-    <url-pattern>*.do</url-pattern>
+    <url-pattern>/</url-pattern>
+    <!--  /    匹配所有路径，除了jsp以外-->
+    <!--  /*  匹配所有路径，jsp也被处理-->
   </servlet-mapping>
 </web-app>
 
