@@ -17,6 +17,38 @@
         <property name="maxUploadSize" value="104857600"/>
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
-    <!-- 处理静态文件-->
-    <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
+    <!--处理静态文件 -->
+    <mvc:resources location="/js/" mapping="/js/**"/>
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/img/" mapping="/img/**"/>
+
+    <!--校验 -->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <!-- 国际化配置 -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <!-- 国际化信息所在的文件名 -->
+        <property name="basename" value="message"/>
+        <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
+    <mvc:interceptors>
+        <!--<bean class="com.etc.interceptor.MyInterceptor"></bean>-->
+
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"></mvc:mapping>
+            <mvc:exclude-mapping path="/login"></mvc:exclude-mapping>
+            <mvc:exclude-mapping path="/login2.do"></mvc:exclude-mapping>
+            <bean class="com.etc.interceptor.LoginIntercepter"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>
