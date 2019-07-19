@@ -38,17 +38,32 @@
 
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
-    <mvc:interceptors>
-        <!--<bean class="com.etc.interceptor.MyInterceptor"></bean>-->
 
-        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+   <mvc:interceptors>
+       <!--<bean class="com.etc.interceptor.MyInterceptor"></bean>-->
+       <bean class="com.etc.interceptor.LoginInterceptor"></bean>
+       <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+       <mvc:interceptor>
+           <mvc:mapping path="/**"></mvc:mapping>
+           <mvc:exclude-mapping path="/login"></mvc:exclude-mapping>
+           <mvc:exclude-mapping path="/login2.do"></mvc:exclude-mapping>
+           <bean class="com.etc.interceptor.LoginInterceptor"></bean>
+       </mvc:interceptor>
 
-        <mvc:interceptor>
-            <mvc:mapping path="/**"></mvc:mapping>
-            <mvc:exclude-mapping path="/login"></mvc:exclude-mapping>
-            <mvc:exclude-mapping path="/login2.do"></mvc:exclude-mapping>
-            <bean class="com.etc.interceptor.LoginIntercepter"></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
-
+   </mvc:interceptors>
+    <!--<bean class="com.etc.exception.MyExceptionResolver"></bean>-->
+    <!---->
+    <!--&lt;!&ndash; 配置使用SimpleMappingExceptionResolver来映射异常 &ndash;&gt;-->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+    <!--&lt;!&ndash; 给异常命名一个别名 &ndash;&gt;-->
+    <!--<property name="exceptionAttribute" value="ex"></property>-->
+    <!--<property name="exceptionMappings">-->
+    <!--<props>-->
+    <!--&lt;!&ndash; 一定要异常的全类名。-->
+    <!--表示出现ArrayIndexOutOfBoundsException异常，就跳转到error.jsp视图&ndash;&gt;-->
+    <!--<prop key="java.lang.ArrayIndexOutOfBoundsException">error</prop>-->
+    <!--<prop key="java.lang.NullPointerException">404</prop>-->
+    <!--</props>-->
+    <!--</property>-->
+    <!--</bean>-->
 </beans>

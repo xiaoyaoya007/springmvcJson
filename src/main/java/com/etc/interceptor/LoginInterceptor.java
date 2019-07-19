@@ -5,16 +5,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class MyInterceptor implements HandlerInterceptor {
-
+public class LoginInterceptor implements HandlerInterceptor {
     @Override
-    //返回false，不会继续执行，，返回true,继续
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println("ip:"+httpServletRequest.getRemoteHost()+",url:"+httpServletRequest.getRequestURL());
-        httpServletResponse.setContentType("text/html;charset=UTF-8");
-        httpServletResponse.getWriter().print("你无权访问");
-        return false;
+        HttpSession session = httpServletRequest.getSession();
+        if(session.getAttribute("loginUser")==null){
+            httpServletResponse.sendRedirect("/login");
+            return false;
+        }else {
+            System.out.println("ip:"+httpServletRequest.getRemoteHost()+",url:"+httpServletRequest.getRequestURL());
+            return true;
+        }
     }
 
     @Override
